@@ -1,0 +1,244 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
+
+namespace FileWatcher_Demo
+{
+    class Program
+    {
+
+
+        Thread thread = new Thread(new ThreadStart(objFileSystemWatcher));
+        Thread FirstThread = new Thread(new ThreadStart(objFileSystemWatcher1));
+        Thread SecondThread = new Thread(new ThreadStart(objFileSystemWatcher2));
+
+        Program()
+        {
+
+            thread.Start();
+            FirstThread.Start();
+            SecondThread.Start();
+
+
+        }
+
+        public static void Main(string[] args)
+        {
+
+            Thread thread = new Thread(new ThreadStart(objFileSystemWatcher));
+            Thread FirstThread = new Thread(new ThreadStart(objFileSystemWatcher1));
+            Thread SecondThread = new Thread(new ThreadStart(objFileSystemWatcher2));
+
+
+            //objFileSystemWatcher();
+            //objFileSystemWatcher1();
+            //objFileSystemWatcher2();
+
+            thread.Start();
+            //FirstThread.Abort();
+            //SecondThread.Abort();
+        }
+
+        public static void objFileSystemWatcher()
+        {
+
+            FileSystemWatcher objFileSystemWatcher = new FileSystemWatcher(@"C:\FileWatcher");
+            objFileSystemWatcher.EnableRaisingEvents = true;
+            objFileSystemWatcher.IncludeSubdirectories = true;
+
+            objFileSystemWatcher.Changed += ObjFileSystemWatcher_Changed;
+            objFileSystemWatcher.Created += ObjFileSystemWatcher_Created;
+            objFileSystemWatcher.Deleted += ObjFileSystemWatcher_Deleted;
+            objFileSystemWatcher.Renamed += ObjFileSystemWatcher_Renamed;
+
+        }
+
+        private static void ObjFileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+
+            Console.WriteLine("File Renamed at objFileSystemWatcher ONE  " + DateTime.Now);
+            string FullPath = e.FullPath;
+            string Filename = e.Name;
+            //string text = System.IO.File.ReadAllText(FullPath);
+            //System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+
+            string[] lines = System.IO.File.ReadAllLines(FullPath);
+
+            // Display the file contents by using a foreach loop.
+            System.Console.WriteLine("Contents of WriteLines2 ONE .txt = ");
+            foreach (string line in lines)
+            {
+                // Use a tab to indent each line of the file.
+                Console.WriteLine("\t" + line);
+                Console.ReadLine();
+            }
+            Thread.ResetAbort();
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+
+            
+            
+
+            System.Console.ReadKey();
+        }
+
+        private static void ObjFileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Deleted at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher_Created(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Created at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Changed at " + DateTime.Now);
+        }
+
+
+
+
+
+        public static void objFileSystemWatcher1()
+        {
+            FileSystemWatcher objFileSystemWatcher1 = new FileSystemWatcher(@"C:\FileWatcher");
+            objFileSystemWatcher1.EnableRaisingEvents = true;
+            objFileSystemWatcher1.IncludeSubdirectories = true;
+
+            objFileSystemWatcher1.Changed += ObjFileSystemWatcher1_Changed;
+            objFileSystemWatcher1.Created += ObjFileSystemWatcher1_Created;
+            objFileSystemWatcher1.Deleted += ObjFileSystemWatcher1_Deleted;
+            objFileSystemWatcher1.Renamed += ObjFileSystemWatcher1_Renamed;
+        }
+
+        private static void ObjFileSystemWatcher1_Renamed(object sender, RenamedEventArgs e)
+        {
+
+            Console.WriteLine("File Renamed at objFileSystemWatcher TWO " + DateTime.Now);
+            string FullPath = e.FullPath;
+            string Filename = e.Name;
+            //string text = System.IO.File.ReadAllText(FullPath);
+            //System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+
+            string[] lines = System.IO.File.ReadAllLines(FullPath);
+
+            // Display the file contents by using a foreach loop.
+            System.Console.WriteLine("Contents of WriteLines2 TWO .txt = ");
+            foreach (string line in lines)
+            {
+                // Use a tab to indent each line of the file.
+                Console.WriteLine("\t" + line);
+                Console.ReadLine();
+            }
+            Thread.ResetAbort();
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+
+           
+            System.Console.ReadKey();
+        }
+
+        private static void ObjFileSystemWatcher1_Deleted(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Deleted at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher1_Created(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Created at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Changed at " + DateTime.Now);
+        }
+
+
+
+
+
+        public static void objFileSystemWatcher2()
+        {
+            FileSystemWatcher objFileSystemWatcher2 = new FileSystemWatcher(@"C:\FileWatcher");
+            objFileSystemWatcher2.EnableRaisingEvents = true;
+            objFileSystemWatcher2.IncludeSubdirectories = true;
+
+            objFileSystemWatcher2.Changed += ObjFileSystemWatcher2_Changed;
+            objFileSystemWatcher2.Created += ObjFileSystemWatcher2_Created;
+            objFileSystemWatcher2.Deleted += ObjFileSystemWatcher2_Deleted;
+            objFileSystemWatcher2.Renamed += ObjFileSystemWatcher2_Renamed;
+            Console.ReadLine();
+        }
+
+
+        private static void ObjFileSystemWatcher2_Renamed(object sender, RenamedEventArgs e)
+        {
+
+            Console.WriteLine("File Renamed at objFileSystemWatcher THREE " + DateTime.Now);
+            string FullPath = e.FullPath;
+            string Filename = e.Name;
+            //string text = System.IO.File.ReadAllText(FullPath);
+            //System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+
+            string[] lines = System.IO.File.ReadAllLines(FullPath);
+
+            // Display the file contents by using a foreach loop.
+            System.Console.WriteLine("Contents of WriteLines2 THREE.txt = ");
+            foreach (string line in lines)
+            {
+                // Use a tab to indent each line of the file.
+                Console.WriteLine("\t" + line);
+                Console.ReadLine();
+            }
+           
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+
+            System.Console.ReadKey();
+        }
+
+        private static void ObjFileSystemWatcher2_Deleted(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Deleted at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher2_Created(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Created at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher2_Changed(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Changed at " + DateTime.Now);
+        }
+
+    
+
+    }
+}
+
+
+
+
+
+
+        //System.Threading.Thread thread1 = new System.Threading.Thread(objFileSystemWatcher).Start;
+
+
+
+
+
+
+
+
+           
+
+           
+   

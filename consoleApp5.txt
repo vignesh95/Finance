@@ -1,0 +1,124 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace ConsoleApplication5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            FileSystemWatcher objFileSystemWatcher = new FileSystemWatcher(@"C:\FileWatcher");
+            FileSystemWatcher objFileSystemWatcher1 = new FileSystemWatcher(@"C:\FileWatcher");
+            FileSystemWatcher objFileSystemWatcher2 = new FileSystemWatcher(@"C:\FileWatcher");
+
+
+            objFileSystemWatcher.EnableRaisingEvents = true;
+            objFileSystemWatcher.IncludeSubdirectories = true;
+
+            objFileSystemWatcher1.EnableRaisingEvents = true;
+            objFileSystemWatcher1.IncludeSubdirectories = true;
+
+            objFileSystemWatcher2.EnableRaisingEvents = true;
+            objFileSystemWatcher2.IncludeSubdirectories = true;
+
+
+
+            objFileSystemWatcher.Changed += ObjFileSystemWatcher_Changed;
+            objFileSystemWatcher.Created += ObjFileSystemWatcher_Created;
+            objFileSystemWatcher.Deleted += ObjFileSystemWatcher_Deleted;
+            objFileSystemWatcher.Renamed += ObjFileSystemWatcher_Renamed;
+
+            objFileSystemWatcher1.Changed += ObjFileSystemWatcher1_Changed;
+            objFileSystemWatcher1.Created += ObjFileSystemWatcher1_Created;
+            objFileSystemWatcher1.Deleted += ObjFileSystemWatcher1_Deleted;
+            objFileSystemWatcher1.Renamed += ObjFileSystemWatcher1_Renamed;
+
+            //objFileSystemWatcher2.Changed += ObjFileSystemWatcher_Changed;
+            //objFileSystemWatcher2.Created += ObjFileSystemWatcher_Created;
+            //objFileSystemWatcher2.Deleted += ObjFileSystemWatcher_Deleted;
+            //objFileSystemWatcher2.Renamed += ObjFileSystemWatcher_Renamed;
+            Console.ReadLine();
+        }
+
+        private static void ObjFileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
+        {
+            Console.WriteLine("File Renamed at ONE " + DateTime.Now);
+            string FullPath = e.FullPath;
+            string Filename = e.Name;
+            //string text = System.IO.File.ReadAllText(FullPath);
+            //System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+
+            string[] lines = System.IO.File.ReadAllLines(FullPath);
+
+            // Display the file contents by using a foreach loop.
+            System.Console.WriteLine("Contents of WriteLines2.txt = ");
+            foreach (string line in lines)
+            {
+                // Use a tab to indent each line of the file.
+                Console.WriteLine("\t" + line);
+            }
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            System.Console.ReadKey();
+        }
+
+        private static void ObjFileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Deleted at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher_Created(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Created at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Changed at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher1_Renamed(object sender, RenamedEventArgs e)
+        {
+            Console.WriteLine("File Renamed at TWO " + DateTime.Now);
+            string FullPath = e.FullPath;
+            string Filename = e.Name;
+            //string text = System.IO.File.ReadAllText(FullPath);
+            //System.Console.WriteLine("Contents of WriteText.txt = {0}", text);
+
+            string[] lines = System.IO.File.ReadAllLines(FullPath);
+
+            // Display the file contents by using a foreach loop.
+            System.Console.WriteLine("Contents of WriteLines2.txt = ");
+            foreach (string line in lines)
+            {
+                // Use a tab to indent each line of the file.
+                Console.WriteLine("\t" + line);
+            }
+
+            // Keep the console window open in debug mode.
+            Console.WriteLine("Press any key to exit.");
+            System.Console.ReadKey();
+        }
+
+        private static void ObjFileSystemWatcher1_Deleted(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Deleted at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher1_Created(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Created at " + DateTime.Now);
+        }
+
+        private static void ObjFileSystemWatcher1_Changed(object sender, FileSystemEventArgs e)
+        {
+            Console.WriteLine("File Changed at " + DateTime.Now);
+        }
+    }
+}
+
